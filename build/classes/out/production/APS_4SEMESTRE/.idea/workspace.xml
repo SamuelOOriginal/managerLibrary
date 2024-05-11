@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="97d5dfd3-33aa-4b95-bd2b-ee45551349bb" name="Changes" comment="correcao dao" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Interface" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="feature/vitoria" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="5" />
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="main" />
+                    <option name="lastUsedInstant" value="1667787392" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="feature/vitoria" />
+                    <option name="lastUsedInstant" value="1667787278" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="ParteSandrin/Visual_E_Busca" />
+                    <option name="lastUsedInstant" value="1666206867" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$/.." />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
+  </component>
+  <component name="KotlinCodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2G8UFtGSpxyierZObOLNY2apCq4" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Downloaded.Files.Path.Enabled": "true",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "true",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW": "true",
+    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "266",
+    "last_opened_file_path": "C:/Users/vitor/OneDrive/Área de Trabalho/Unip/Aps/APS - 4 semestre/APS_4SEMESTRE",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "project.kotlinCompiler"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\vitor\OneDrive\Área de Trabalho\APS - 4 semestre\APS_4SEMESTRE\src" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="View" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="TelaLogin" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="View.TelaLogin" />
+      <module name="APS_4SEMESTRE" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="View.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.TelaLogin" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="97d5dfd3-33aa-4b95-bd2b-ee45551349bb" name="Changes" comment="" />
+      <created>1665769603705</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1665769603705</updated>
+    </task>
+    <task id="LOCAL-00001" summary="add classes Publishers, book e author">
+      <created>1665775629966</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1665775629966</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Criando conexao banco de dados e classe teste main para buscar um livro por nome">
+      <created>1665885246212</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1665885246212</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Criando Select de busca, insert e update de Books">
+      <created>1665965562071</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1665965562071</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Criando Select de busca, insert e update de Books e login">
+      <created>1666206588329</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1666206588329</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Criando Select de busca, insert e update de Books e login">
+      <created>1666291171603</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1666291171603</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Comitando gitIgnore configurado">
+      <created>1666291471815</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1666291471815</updated>
+    </task>
+    <task id="LOCAL-00007" summary="merge main">
+      <created>1666467109369</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1666467109369</updated>
+    </task>
+    <task id="LOCAL-00008" summary="finalizacao tela de login">
+      <created>1666633210306</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1666633210307</updated>
+    </task>
+    <task id="LOCAL-00009" summary="finalizacao tela de login">
+      <created>1666650473407</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1666650473407</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Ajustando tela de login">
+      <created>1667100155996</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1667100155996</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Finalizando tela de login">
+      <created>1667436580180</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1667436580180</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Finalizando tela de login">
+      <created>1667682783074</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1667682783074</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Ajuste merge feat/vitoria">
+      <created>1667683095069</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1667683095069</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Ajuste de metodo de busca Autores">
+      <created>1667686415832</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1667686415832</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Ajuste tela login alteranto logo">
+      <created>1667689871801</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1667689871801</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Ajuste tela login alteranto logo">
+      <created>1667690103921</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1667690103921</updated>
+    </task>
+    <task id="LOCAL-00017" summary="correcao metodo adicionar livros">
+      <created>1667778222610</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1667778222610</updated>
+    </task>
+    <task id="LOCAL-00018" summary="correcao metodo adicionar livros">
+      <created>1668613295241</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1668613295241</updated>
+    </task>
+    <task id="LOCAL-00019" summary="correcao dao">
+      <created>1668616729389</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1668616729389</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add classes Publishers, book e author" />
+    <MESSAGE value="Criando conexao banco de dados e classe teste main para buscar um livro por nome" />
+    <MESSAGE value="Criando Select de busca, insert e update de Books" />
+    <MESSAGE value="Criando Select de busca, insert e update de Books e login" />
+    <MESSAGE value="Comitando gitIgnore configurado" />
+    <MESSAGE value="merge main" />
+    <MESSAGE value="finalizacao tela de login" />
+    <MESSAGE value="Ajustando tela de login" />
+    <MESSAGE value="Finalizando tela de login" />
+    <MESSAGE value="Ajuste merge feat/vitoria" />
+    <MESSAGE value="Ajuste de metodo de busca Autores" />
+    <MESSAGE value="Ajuste tela login alteranto logo" />
+    <MESSAGE value="correcao metodo adicionar livros" />
+    <MESSAGE value="correcao dao" />
+    <option name="LAST_COMMIT_MESSAGE" value="correcao dao" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/DAO/BookDao.java</url>
+          <line>175</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
