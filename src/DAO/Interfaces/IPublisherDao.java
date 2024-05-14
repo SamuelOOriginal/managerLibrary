@@ -4,6 +4,7 @@
  */
 package DAO.Interfaces;
 
+import model.Author;
 import model.Publisher;
 
 import java.sql.SQLException;
@@ -26,4 +27,6 @@ public interface IPublisherDao {
     List<Publisher> getAllPublishers() throws Exception;
     
     void deletePublisher(int publisher_id) throws SQLException;
+
+    int getByPublishNameReturnId(String fName);
 }

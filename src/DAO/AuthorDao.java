@@ -45,6 +45,57 @@ public class AuthorDao implements IAuthorDao {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public Author getAuthorByNames(String fName, String lName) {
+        try(InputStream is = new FileInputStream(this.authorPath);
+            InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
+            BufferedReader br = new BufferedReader(isr);
+        ) {
+            String linha;
+            while ((linha = br.readLine()) != null){
+
+                String[] authors = linha.split(",");
+
+                int id = Integer.parseInt(authors[0]);
+                String lastName = authors[1];
+                String firstNane = authors[2];
+
+                if (firstNane.equals(fName) && lastName.equals(lName)){
+                    return new Author(id, lastName, firstNane);
+                }
+            }
+            return null;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public int getByNameReturnId(String fName, String lName) {
+        try(InputStream is = new FileInputStream(this.authorPath);
+            InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
+            BufferedReader br = new BufferedReader(isr);
+        ) {
+            String linha;
+            while ((linha = br.readLine()) != null){
+
+                String[] authors = linha.split(",");
+
+                int id = Integer.parseInt(authors[0]);
+                String lastName = authors[1];
+                String firstNane = authors[2];
+
+                if (firstNane.equals(fName) && lastName.equals(lName)){
+                    System.out.println("ID: " + id);
+                    return id;
+                }
+            }
+            return -1;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
     @Override
     public void insertAuthor(String fName, String name) throws SQLException {
         try (FileWriter fw = new FileWriter(this.authorPath, true);
@@ -54,6 +105,45 @@ public class AuthorDao implements IAuthorDao {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void editAuthor(String name, String fName, int author_id) throws SQLException {
+       try(InputStream is = new FileInputStream(this.authorPath);
+           InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
+           BufferedReader br = new BufferedReader(isr)){
+           String linha;
+           ArrayList<Author> authorListGlobal = new ArrayList<>();
+           String lineToEdit = String.valueOf(author_id);
+
+           while ((linha = br.readLine()) != null) {
+
+               String[] authors = linha.split(",");
+
+               int authorId = Integer.parseInt(authors[0]);
+               String lastName = authors[1];
+               String firstName = authors[2];
+
+               if (authorId == author_id) {
+                   lastName = name;
+                   firstName = fName;
+               }
+
+               authorListGlobal.add(new Author(authorId, lastName, firstName));
+           }
+
+           try (FileWriter fw = new FileWriter(this.authorPath, false);
+                BufferedWriter bw = new BufferedWriter(fw);
+                PrintWriter out = new PrintWriter(bw)) {
+               for (Author author : authorListGlobal) {
+                   out.println(author.getId() + "," + author.getLastName() + "," + author.getFirstName());
+               }
+           } catch (IOException e) {
+               throw new RuntimeException(e);
+           }
+       } catch (IOException e) {
+           throw new RuntimeException(e);
+       }
     }
 
     private int getNextAuthorId() throws IOException {
@@ -78,10 +168,6 @@ public class AuthorDao implements IAuthorDao {
         return highestId + 1;
     }
 
-    @Override
-    public void editAuthor(String name, String fName, int id) throws Exception {
-
-    }
 
     @Override
     public Author getAuthorById(int id) throws SQLException {
@@ -90,10 +176,43 @@ public class AuthorDao implements IAuthorDao {
 
     @Override
     public void deleteAuthor(int author_id) throws SQLException {
+        try(InputStream is = new FileInputStream(this.authorPath);
+            InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
+            BufferedReader br = new BufferedReader(isr)){
+            String linha;
+            ArrayList<Author> authorListGlobal = new ArrayList<>();
+            String lineToDelete = String.valueOf(author_id);
+
+            while ((linha = br.readLine()) != null) {
+
+                String[] authors = linha.split(",");
+
+                int authorId = Integer.parseInt(authors[0]);
+                String lastName = authors[1];
+                String firstName = authors[2];
+
+                if (authorId != author_id) {
+                    authorListGlobal.add(new Author(authorId, lastName, firstName));
+                }
+            }
+
+            try (FileWriter fw = new FileWriter(this.authorPath, false);
+                 BufferedWriter bw = new BufferedWriter(fw);
+                 PrintWriter out = new PrintWriter(bw)) {
+                for (Author author : authorListGlobal) {
+                    out.println(author.getId() + "," + author.getLastName() + "," + author.getFirstName());
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
     
     @Override
     public void deleteRelationAuthorBooks(int author_id) throws SQLException {
 
     }
+
 }

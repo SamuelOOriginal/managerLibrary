@@ -49,8 +49,6 @@ public class Controller {
         
         view.searchActionListnerBook(new ActionSearchListnerBook());
         view.addActionListnerBook(new ActionInsertBook());
-//        view.addExistentAuthorsToListActionListner(new ActionAddExistentAuthorsToListActionListner());
-//        view.removeExistentAuthorsToListActionListner(new ActionRemoveExistentAuthorsToListActionListner());
         view.editActionListnerBook(new ActionEditBook());
         view.excludeActionListnerBook(new ActionExcludeBook());
         
@@ -75,7 +73,7 @@ public class Controller {
         }
         
     }
-    class ActionEditAuthor implements ActionListener{ //AQ 
+    class ActionEditAuthor implements ActionListener{
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -205,36 +203,16 @@ public class Controller {
         }
         
     }
-    
-//    class ActionAddExistentAuthorsToListActionListner implements ActionListener{
-//
-//        @Override
-//        public void actionPerformed(ActionEvent e) {
-//            authors.add(view.getAuthorSelected());
-//            view.atualizaTextoListaAutores(authors);
-//        }
-//
-//    }
-    
-//    class ActionRemoveExistentAuthorsToListActionListner implements ActionListener{
-//
-//        @Override
-//        public void actionPerformed(ActionEvent e) {
-//
-//            if(authors.size() > 0)
-//                authors.remove((authors.size()-1));
-//
-//            view.atualizaTextoListaAutores(authors);
-//        }
-//
-//    }
-    
+
     class ActionSearchPublisher implements ActionListener{
         
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
                 List<Publisher> publisherFiltered = publisherDao.getPublisherByName(view.getSearchPublishers());
+                if(publisherFiltered.isEmpty()){
+                    view.refreshVisualComponents(null, publisherDao.getAllPublishers(), null);
+                }
                 view.refreshVisualComponents(null, publisherFiltered, null);
             } catch (Exception ex) {
                 System.out.println("Erro ao buscar Publishers");
@@ -248,6 +226,11 @@ public class Controller {
         public void actionPerformed(ActionEvent e) {
             try {
                 List<Book> booksFiltered = bookDao.getBooksByTitle(view.getSearchBooks());
+                System.out.println(booksFiltered);
+                if(booksFiltered.isEmpty()){
+                    view.refreshVisualComponents(bookDao.getAllBooks(), null, null);
+                }
+
                 view.refreshVisualComponents(booksFiltered, null, null);
             } catch (Exception ex) {
                 System.out.println("Erro ao buscar Livros");
@@ -261,10 +244,18 @@ public class Controller {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                Author a = view.getSearchAuthors();
-                
-                List<Author> authorsFiltered = authorDao.getAllAuthors();
-                view.refreshVisualComponents(null, null, authorsFiltered);
+                Author authors = view.getSearchAuthors();
+                if(authors == null){
+                    view.refreshVisualComponents(null, null, authorDao.getAllAuthors());
+                }
+
+                List<Author> authorsFiltered = new ArrayList<>();
+                authorsFiltered.add(authorDao.getAuthorByNames(authors.getFirstName(), authors.getLastName()));
+                if(authorsFiltered.get(0) == null){
+                   view.refreshVisualComponents(null, null, authorDao.getAllAuthors());
+                } else if(authorsFiltered.get(0) != null){
+                    view.refreshVisualComponents(null, null, authorsFiltered);
+                }
             } catch (Exception ex) {
                 System.out.println("Erro ao buscar Autores");
             }

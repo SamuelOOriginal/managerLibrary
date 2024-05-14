@@ -17,7 +17,7 @@ public interface IAuthorDao {
     
     void insertAuthor(String name, String fName) throws SQLException;
     
-    void editAuthor(String name, String fName, int id) throws Exception;
+    void editAuthor(String name, String fName, int author_id) throws SQLException;
     
     Author getAuthorById(int id) throws SQLException;
 
@@ -26,4 +26,8 @@ public interface IAuthorDao {
     void deleteAuthor(int author_id) throws SQLException;
     
    void deleteRelationAuthorBooks(int author_id) throws SQLException;
+
+   Author getAuthorByNames(String fName, String lName);
+
+    int getByNameReturnId(String fName, String lName);
 }

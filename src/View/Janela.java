@@ -819,7 +819,7 @@ public class Janela extends javax.swing.JFrame implements View{
         if(jtable_Autor.getSelectionModel().isSelectionEmpty())
             return 0;
         
-        int excludeBooksAndAuthors = JOptionPane.showConfirmDialog(null,"Deseja apagar o autor e todos os livros dele?");
+        int excludeBooksAndAuthors = JOptionPane.showConfirmDialog(null,"Deseja apagar o autor?");
         
         if(excludeBooksAndAuthors == 1)
             return 0 ;
@@ -844,40 +844,45 @@ public class Janela extends javax.swing.JFrame implements View{
 
     @Override
     public Book getEditBooks() {
-//        if(jtable_Livros.getSelectionModel().isSelectionEmpty())
-//            return null;
-//
-//        String isbn = jtable_Livros.getValueAt(jtable_Livros.getSelectedRow(), 0).toString();
-//        String actualBookTitle = jtable_Livros.getValueAt(jtable_Livros.getSelectedRow(), 1).toString();
-//        String actualBookPrice = jtable_Livros.getValueAt(jtable_Livros.getSelectedRow(), 2).toString();
-//
-//        String refreshedBookTitle = JOptionPane.showInputDialog("Deseja atualizar o titulo do livro "+actualBookTitle+" ?");
-//        String refreshedBookPrice = JOptionPane.showInputDialog("Deseja atualizar o preço do livro "+actualBookTitle+" ?");
-//
-//        if(refreshedBookTitle == null || refreshedBookTitle.equals("") || refreshedBookTitle.trim().equals(""))
-//            refreshedBookTitle = actualBookTitle;
-//
-//        if(refreshedBookPrice == null || refreshedBookPrice.equals("") || refreshedBookPrice.trim().equals(""))
-//            refreshedBookPrice = actualBookPrice;
-//
-//        double parsedValue = 0.0;
-//        try{
-//           parsedValue = Double.parseDouble(refreshedBookPrice);
-//        }catch(Exception ex){
-//            JOptionPane.showMessageDialog(null,"Valor inserido inválido! o valor : "+ refreshedBookPrice +", não é válido e foi desconsiderado.");
-//            refreshedBookPrice = actualBookPrice;
-//        }
-//
-//        return new Book(refreshedBookTitle, isbn, Double.parseDouble(refreshedBookPrice));
-        return null;
+        if(jtable_Livros.getSelectionModel().isSelectionEmpty())
+            return null;
+
+        String isbn = jtable_Livros.getValueAt(jtable_Livros.getSelectedRow(), 0).toString();
+        String title = jtable_Livros.getValueAt(jtable_Livros.getSelectedRow(), 1).toString();
+        double price = Double.parseDouble(jtable_Livros.getValueAt(jtable_Livros.getSelectedRow(), 2).toString());
+
+        int authorId = 1;
+        int publisherId = 1;
+
+        return new Book(authorId, title, isbn, price, publisherId);
     }
+
 
     @Override
     public String getDeleteBook() {
         if(jtable_Livros.getSelectionModel().isSelectionEmpty())
             return "";
+        String excluderBook = String.valueOf(JOptionPane.showConfirmDialog(null,"Deseja apagar o livro?"));
+
+        if(excluderBook.equals("0"))
+            return String.valueOf(jtable_Livros.getValueAt(jtable_Livros.getSelectedRow(), 0).toString());
 
         return String.valueOf(jtable_Livros.getValueAt(jtable_Livros.getSelectedRow(), 0).toString());
+    }
+
+    @Override
+    public int getDeletePublishers() {
+        if(jtable_Editoras.getSelectionModel().isSelectionEmpty())
+            return 0;
+
+        int excludeAllBooks = JOptionPane.showConfirmDialog(null,"Deseja apagar a editora?");
+
+        System.out.println(excludeAllBooks);
+
+        if(excludeAllBooks >= 1)
+            return 0 ;
+
+        return Integer.parseInt(jtable_Editoras.getValueAt(jtable_Editoras.getSelectedRow(), 0).toString());
     }
 
     @Override
@@ -916,21 +921,6 @@ public class Janela extends javax.swing.JFrame implements View{
     }
 
     @Override
-    public int getDeletePublishers() {
-        if(jtable_Editoras.getSelectionModel().isSelectionEmpty())
-            return 0;
-        
-        int excludeAllBooks = JOptionPane.showConfirmDialog(null,"Deseja apagar a editora e todos os livros dela?");
-        
-        System.out.println(excludeAllBooks);
-        
-        if(excludeAllBooks >= 1)
-            return 0 ;
-        
-        return Integer.parseInt(jtable_Editoras.getValueAt(jtable_Editoras.getSelectedRow(), 0).toString());
-    }
-
-    @Override
     public void addActionListnerPublisher(ActionListener al) {
         btn_AddEditora.addActionListener(al);
     }
@@ -958,8 +948,15 @@ public class Janela extends javax.swing.JFrame implements View{
     public Author getAddAuthor() {
         String name = txt_NomeNovoAutor.getText();
         String fName = txt_SobrenomeNovoAutor.getText();
-
-        return new Author(fName, name);
+            try {
+                if(name.equals("") || fName.equals("")){
+                    throw new Exception("Por favor, preencha todos os campos!");
+                }
+                return new Author(name, fName);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+                return null;
+            }
     }
 
     @Override
@@ -969,9 +966,13 @@ public class Janela extends javax.swing.JFrame implements View{
 
     @Override
     public Author getSearchAuthors() {
+
         String name = txt_NomeAutorBusca.getText();
         String fName = txt_SobrenomeAutorBusca.getText();
-
+        if(name.equals("") && fName.equals("")){
+            JOptionPane.showMessageDialog(null, "Por favor, preencha ao menos um dos campos!");
+            return null;
+        }
         return new Author(fName, name);
     }
 
@@ -1013,7 +1014,12 @@ public class Janela extends javax.swing.JFrame implements View{
 
     @Override
     public String getSearchBooks() {
-        return txt_tituloLivroBuscar.getText();
+            String title = txt_tituloLivroBuscar.getText();
+            if(title.equals("")){
+                JOptionPane.showMessageDialog(null, "Por favor, preencha ao menos um dos campos!");
+                return null;
+            }
+        return title;
     }
 
     @Override

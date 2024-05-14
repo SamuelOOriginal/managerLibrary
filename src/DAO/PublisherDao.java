@@ -6,16 +6,11 @@ package DAO;
 
 import DAO.Interfaces.IBookDao;
 import DAO.Interfaces.IPublisherDao;
-import database.ConectionDB;
 import model.Book;
 import model.Publisher;
 
-import javax.swing.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +69,45 @@ public class PublisherDao implements IPublisherDao{
 
     @Override
     public void editPublisher(String name, String url, int publisher_id) throws SQLException {
+        try(InputStream is = new FileInputStream(this.publisherPath);
+            InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
+            BufferedReader br = new BufferedReader(isr)){
+            String linha;
+            List<Publisher> publisherListGlobal = new ArrayList<>();
+            String lineToEdit = String.valueOf(publisher_id);
 
+            while ((linha = br.readLine()) != null) {
+
+                String[] publishers = linha.split(",");
+
+                int publisherId = Integer.parseInt(publishers[0]);
+                String namePublisher = publishers[1];
+                String urlPublisher = publishers[2];
+
+                if(publisherId == publisher_id){
+                    namePublisher = name;
+                    urlPublisher = url;
+                }
+
+                publisherListGlobal.add(new Publisher(publisherId, namePublisher, urlPublisher));
+            }
+
+            File inputFile = new File(this.publisherPath);
+            File tempFile = new File(this.publisherPath);
+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+                for (Publisher p : publisherListGlobal) {
+                    writer.write(p.getPublisher_id() + "," + p.getName() + "," + p.getUrl() + System.getProperty("line.separator"));
+                }
+                writer.close();
+                inputFile.delete();
+                tempFile.renameTo(inputFile);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -83,6 +116,32 @@ public class PublisherDao implements IPublisherDao{
 
 
         return null;
+    }
+
+    @Override
+    public List<Publisher> getPublisherByName(String name) throws SQLException {
+        try(InputStream is = new FileInputStream(this.publisherPath);
+            InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
+            BufferedReader br = new BufferedReader(isr)){
+            String linha;
+            List<Publisher> publisherListGlobal = new ArrayList<>();
+
+            while ((linha = br.readLine()) != null) {
+
+                String[] publishers = linha.split(",");
+
+                int publisherId = Integer.parseInt(publishers[0]);
+                String namePublisher = publishers[1];
+                String urlPublisher = publishers[2];
+
+                if(namePublisher.equals(name)){
+                    publisherListGlobal.add(new Publisher(publisherId, namePublisher, urlPublisher));
+                }
+            }
+            return publisherListGlobal;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -110,58 +169,42 @@ public class PublisherDao implements IPublisherDao{
     }
 
     @Override
-    public List<Publisher> getPublisherByName(String name) throws SQLException {
-
-//        if(name == null || name.equals("") || name.trim().equals(""))
-//        {
-//            try {
-//                return this.getAllPublishers();
-//            } catch (Exception ex) {
-//                System.out.println("Erro interno, não foi possivel carregar nenhuma editora");
-//            }
-//        }
-//
-//        List<Publisher> publishers = new ArrayList<>();
-//        String sql = "SELECT * FROM Publishers WHERE name LIKE ?";
-//
-//        PreparedStatement pstm = null;
-//        ResultSet rs = null;
-//        try {
-//            pstm = conexao.prepareStatement(sql);
-//            pstm.setString(1, "%"+name+"%");
-//
-//            rs = pstm.executeQuery();
-//
-//            Publisher publisher = null;
-//            while (rs.next()) {
-//                String names = rs.getString("name");
-//                String url = rs.getString("url");
-//                int publisherP = rs.getInt("publisher_id");
-//
-//                publishers.add(new Publisher(publisherP, names, url));
-//
-//            }
-//            if(publishers.size() == 0){
-//                JOptionPane.showMessageDialog(null, "Não foi encontrada nenhuma editora com o nome: " + name);
-//            }
-//            return publishers;
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        finally {
-//            if(!pstm.isClosed())
-//                pstm.close();
-//        }
-        return null;
-        
-
-    }
-    
-    @Override
     public void deletePublisher(int publisher_id) throws SQLException {
+        try {
 
+            String lineToRemove = String.valueOf(publisher_id);
+            String currentLine;
+
+            File inputFile = new File(this.publisherPath);
+            File tempFile = new File("files/publisherTemp.csv");
+
+            try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+                 BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+
+                while ((currentLine = reader.readLine()) != null) {
+                    String[] publishers = currentLine.split(",");
+                    if (!publishers[0].equals(lineToRemove)) {
+                        writer.write(currentLine + System.getProperty("line.separator"));
+                    }
+                }
+                writer.close();
+                reader.close();
+                inputFile.delete();
+                tempFile.renameTo(inputFile);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
    }
+
+
+
+    @Override
+    public int getByPublishNameReturnId(String fName) {
+        return 0;
+    }
 
     public void deleteRelationPublisherBooks(int publisher_id) throws Exception{
 
