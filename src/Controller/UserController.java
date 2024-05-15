@@ -33,7 +33,7 @@ public class UserController implements ViewLogin {
                     }
                     IPublisherDao publisherDao = null;
                     try {
-                        publisherDao = new PublisherDao(bookDao);
+                        publisherDao = new PublisherDao();
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }

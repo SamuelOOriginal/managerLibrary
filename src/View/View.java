@@ -36,7 +36,7 @@ public interface View {
     
     public void removeExistentAuthorsToListActionListner(ActionListener al);
     
-    public Book getAddBook();
+    public Book getAddBook() throws Exception;
     
     public String getSearchBooks();
     

@@ -29,5 +29,5 @@ public interface IAuthorDao {
 
    Author getAuthorByNames(String fName, String lName);
 
-    int getByNameReturnId(String fName, String lName);
+    int getByNameReturnId(String fName);
 }

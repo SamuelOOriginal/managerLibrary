@@ -26,9 +26,7 @@ public class Controller {
     IAuthorDao authorDao;
     IBookDao bookDao;
     IPublisherDao publisherDao;
-    
     View view;
-
     List<Book> books = new ArrayList<>();
     List<Publisher> publishers = new ArrayList<>();
     

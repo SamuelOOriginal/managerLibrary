@@ -25,11 +25,6 @@ public class PublisherDao implements IPublisherDao{
 
     public PublisherDao() throws Exception {
     }
-    
-    public PublisherDao(BookDao _bookDao) throws Exception {
-    
-        bookDao = _bookDao;
-    }
 
     private String publisherPath = "files/publisher.csv";
 
@@ -42,29 +37,6 @@ public class PublisherDao implements IPublisherDao{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private int getNextPublisherId() throws IOException {
-        int highestId = 0;
-
-        try (InputStream is = new FileInputStream(this.publisherPath);
-             InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
-             BufferedReader br = new BufferedReader(isr)) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] bookData = line.split(",");
-                if (bookData.length >= 1) {
-                    try {
-                        int currentId = Integer.parseInt(bookData[0]);
-                        highestId = Math.max(highestId, currentId);
-                    } catch (NumberFormatException e) {
-                        System.err.println("Error parsing ID: " + line);
-                    }
-                }
-            }
-        }
-
-        return highestId + 1;
     }
 
     @Override
@@ -203,7 +175,26 @@ public class PublisherDao implements IPublisherDao{
 
     @Override
     public int getByPublishNameReturnId(String fName) {
-        return 0;
+        try(InputStream is = new FileInputStream(this.publisherPath);
+            InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
+            BufferedReader br = new BufferedReader(isr);
+        ) {
+            String linha;
+            while ((linha = br.readLine()) != null){
+
+                String[] publishers = linha.split(",");
+
+                int id = Integer.parseInt(publishers[0]);
+                String name = publishers[1];
+
+                if (name.equals(fName)){
+                    return id;
+                }
+            }
+            return -1;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void deleteRelationPublisherBooks(int publisher_id) throws Exception{
@@ -223,6 +214,29 @@ public class PublisherDao implements IPublisherDao{
 
     private List<Book> getBooksWithRelationalPublisher(int publisher_id) throws Exception {
         return null;
+    }
+
+    private int getNextPublisherId() throws IOException {
+        int highestId = 0;
+
+        try (InputStream is = new FileInputStream(this.publisherPath);
+             InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
+             BufferedReader br = new BufferedReader(isr)) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] bookData = line.split(",");
+                if (bookData.length >= 1) {
+                    try {
+                        int currentId = Integer.parseInt(bookData[0]);
+                        highestId = Math.max(highestId, currentId);
+                    } catch (NumberFormatException e) {
+                        System.err.println("Error parsing ID: " + line);
+                    }
+                }
+            }
+        }
+
+        return highestId + 1;
     }
 
 }

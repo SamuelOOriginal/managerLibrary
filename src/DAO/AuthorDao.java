@@ -36,7 +36,7 @@ public class AuthorDao implements IAuthorDao {
                 String lastName = authors[1];
                 String firstNane = authors[2];
 
-                var authorModel = new Author(id,lastName, firstNane);
+                var authorModel = new Author(id,firstNane,lastName);
 
                 authorListGlobal.add(authorModel);
             }
@@ -72,7 +72,7 @@ public class AuthorDao implements IAuthorDao {
     }
 
     @Override
-    public int getByNameReturnId(String fName, String lName) {
+    public int getByNameReturnId(String fName) {
         try(InputStream is = new FileInputStream(this.authorPath);
             InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
             BufferedReader br = new BufferedReader(isr);
@@ -83,11 +83,14 @@ public class AuthorDao implements IAuthorDao {
                 String[] authors = linha.split(",");
 
                 int id = Integer.parseInt(authors[0]);
-                String lastName = authors[1];
-                String firstNane = authors[2];
+                String firstNane = authors[1];
+                String lastName = authors[2];
 
-                if (firstNane.equals(fName) && lastName.equals(lName)){
-                    System.out.println("ID: " + id);
+                String nameAuthor = firstNane + " " + lastName;
+
+
+
+                if (nameAuthor.equals(fName)){;
                     return id;
                 }
             }

@@ -28,29 +28,6 @@ public class BookDao implements IBookDao{
         }
     }
 
-    private int getNextBookId() throws IOException {
-        int highestId = 0;
-
-        try (InputStream is = new FileInputStream(this.bookPath);
-             InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
-             BufferedReader br = new BufferedReader(isr)) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] bookData = line.split(",");
-                if (bookData.length >= 1) {
-                    try {
-                        int currentId = Integer.parseInt(bookData[0]);
-                        highestId = Math.max(highestId, currentId);
-                    } catch (NumberFormatException e) {
-                        System.err.println("Error parsing ID: " + line);
-                    }
-                }
-            }
-        }
-
-        return highestId + 1;
-    }
-
     @Override
     public ArrayList getAllBooks() {
         try (
@@ -65,11 +42,11 @@ public class BookDao implements IBookDao{
 
                 String[] books = linha.split(",");
 
-                int authorId = Integer.parseInt(books[0]);
-                String title = books[1];
-                String isbn = books[2];
-                double price = Double.parseDouble(books[3]);
-                int publisherId = Integer.parseInt(books[4]);
+                int authorId = Integer.parseInt(books[1]);
+                String title = books[2];
+                String isbn = books[3];
+                double price = Double.parseDouble(books[4]);
+                int publisherId = Integer.parseInt(books[5]);
 
                 var bookModel = new Book(authorId, title, isbn, price, publisherId);
 
@@ -121,15 +98,17 @@ public class BookDao implements IBookDao{
 
                 String[] books = linha.split(",");
 
-                int authorId = Integer.parseInt(books[0]);
-                String titleBook = books[1];
-                String isbnBook = books[2];
-                double priceBook = Double.parseDouble(books[3]);
-                int publisherId = Integer.parseInt(books[4]);
+                int authorId = Integer.parseInt(books[1]);
+                String titleBook = books[2];
+                String isbnBook = books[3];
+                double priceBook = Double.parseDouble(books[4]);
+                int publisherId = Integer.parseInt(books[5]);
 
                 if (isbnBook.equals(lineToEdit)) {
                     titleBook = title;
                     priceBook = price;
+                    authorId = Integer.parseInt(books[1]);
+                    publisherId = Integer.parseInt(books[5]);
                 }
 
                 var bookModel = new Book(authorId, titleBook, isbnBook, priceBook, publisherId);
@@ -140,7 +119,7 @@ public class BookDao implements IBookDao{
                  BufferedWriter bw = new BufferedWriter(fw);
                  PrintWriter out = new PrintWriter(bw)) {
                 for (Book book : bookListGlobal) {
-                    out.println(book.getAuthor_id() + "," + book.getTitle() + "," + book.getIsbn() + "," + book.getPrice() + "," + book.getPublisher_id());
+                    out.println(getNextBookId() + "," + book.getAuthor_id() + "," + book.getTitle() + "," + book.getIsbn() + "," + book.getPrice() + "," + book.getPublisher_id());
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -185,5 +164,28 @@ public class BookDao implements IBookDao{
         } catch(IOException e){
             throw new RuntimeException(e);
         }
+    }
+
+    private int getNextBookId() throws IOException {
+        int highestId = 0;
+
+        try (InputStream is = new FileInputStream(this.bookPath);
+             InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
+             BufferedReader br = new BufferedReader(isr)) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] bookData = line.split(",");
+                if (bookData.length >= 1) {
+                    try {
+                        int currentId = Integer.parseInt(bookData[0]);
+                        highestId = Math.max(highestId, currentId);
+                    } catch (NumberFormatException e) {
+                        System.err.println("Error parsing ID: " + line);
+                    }
+                }
+            }
+        }
+
+        return highestId + 1;
     }
 }
